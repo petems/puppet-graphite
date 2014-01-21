@@ -47,12 +47,14 @@ class graphite::config_apache inherits graphite::params {
 		}
 	}
 
-	service { "${::graphite::params::apache_service_name}":
-		ensure     => running,
-		enable     => true,
-		hasrestart => true,
-		hasstatus  => true,
-		require    => Exec['Chown graphite for web user'];
+	if ! defined(Service[${::graphite::params::apache_service_name}]) {
+		service { "${::graphite::params::apache_service_name}":
+			ensure     => running,
+			enable     => true,
+			hasrestart => true,
+			hasstatus  => true,
+			require    => Exec['Chown graphite for web user'];
+		}
 	}
 
 	# Deploy configfiles
