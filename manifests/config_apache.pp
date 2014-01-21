@@ -47,7 +47,7 @@ class graphite::config_apache inherits graphite::params {
 		}
 	}
 
-	if ! defined(Service[${::graphite::params::apache_service_name}]) {
+	if ! defined(Service["${::graphite::params::apache_service_name}"]) {
 		service { "${::graphite::params::apache_service_name}":
 			ensure     => running,
 			enable     => true,
